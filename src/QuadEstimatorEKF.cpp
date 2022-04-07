@@ -243,8 +243,19 @@ void QuadEstimatorEKF::Predict(float dt, V3F accel, V3F gyro)
   gPrime.setIdentity();
 
   ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
+  for(int i=0;i<3;++i) {
+    gPrime(i,i+3) = dt;
+  }
 
+  VectorXf ut(3);
+  ut << accel.x, accel.y, accel.z;
+  for(int i=0;i<3;++i) {
+    gPrime(i+3,6) = RbgPrime.row(i).dot(ut)*dt;
+  }
 
+  ekfCov = gPrime * ekfCov;
+  gPrime.transposeInPlace();
+  ekfCov = ekfCov * gPrime + Q;
   /////////////////////////////// END STUDENT CODE ////////////////////////////
 
   ekfState = newState;
