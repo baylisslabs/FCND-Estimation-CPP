@@ -11,20 +11,13 @@ This is the writeup for my implementation of the *Building an Estimator* in C++.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-
-<!-- $$
+$
 \begin{align}
-F_{total} &= F_1 + F_2 + F_3 + F_4 \\
-\tau_x &= (F_1 + F_4 - F_2 - F_3)l \\
-\tau_y &= (F_1 + F_2 - F_3 - F_4)l \\
-\tau_z &= \tau_1 + \tau_2 + \tau_3 + \tau_4
+\hat{\sigma}^2 = {1\over n} \sum_{i=1}^{n} (x_i-\hat{x})^2
 \end{align}
-$$ -->
+$
 
-<div align="center"><img style="background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0AF_%7Btotal%7D%20%26%3D%20F_1%20%2B%20F_2%20%2B%20F_3%20%2B%20F_4%20%5C%5C%0A%5Ctau_x%20%26%3D%20(F_1%20%2B%20F_4%20-%20F_2%20-%20F_3)l%20%5C%5C%0A%5Ctau_y%20%26%3D%20(F_1%20%2B%20F_2%20-%20F_3%20-%20F_4)l%20%5C%5C%0A%5Ctau_z%20%26%3D%20%5Ctau_1%20%2B%20%5Ctau_2%20%2B%20%5Ctau_3%20%2B%20%5Ctau_4%0A%5Cend%7Balign%7D"></div>
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
 
 ```cpp
 gps_xs = np.genfromtxt("../config/log/Graph1.txt",delimiter=",",skip_header=True)
