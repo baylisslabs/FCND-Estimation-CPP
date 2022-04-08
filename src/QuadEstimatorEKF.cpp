@@ -155,7 +155,7 @@ VectorXf QuadEstimatorEKF::PredictState(VectorXf curState, float dt, V3F accel, 
   Quaternion<float> attitude = Quaternion<float>::FromEuler123_RPY(rollEst, pitchEst, curState(6));
 
   ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
-  auto accelInI = attitude.Rotate_BtoI(accel) - V3F(0,0,CONST_GRAVITY);
+  auto accelInI = attitude.Rotate_BtoI(accel) + V3F(0,0,-CONST_GRAVITY);
   VectorXf dState(QUAD_EKF_NUM_STATES);
   dState(0) = curState(3);
   dState(1) = curState(4);
@@ -244,12 +244,16 @@ void QuadEstimatorEKF::Predict(float dt, V3F accel, V3F gyro)
   gPrime.setIdentity();
 
   ////////////////////////////// BEGIN STUDENT CODE ///////////////////////////
+  auto attitude = Quaternion<float>::FromEuler123_RPY(rollEst, pitchEst, ekfState(6));
+  auto gravity = V3F(0,0,-CONST_GRAVITY);
+  auto accelInB = accel + attitude.Rotate_ItoB(gravity);
+
   for(int i=0;i<3;++i) {
     gPrime(i,i+3) = dt;
   }
 
   VectorXf ut(3);
-  ut << accel.x, accel.y, accel.z;
+  ut << accelInB.x, accelInB.y, accelInB.z;
   for(int i=0;i<3;++i) {
     gPrime(i+3,6) = RbgPrime.row(i).dot(ut)*dt;
   }
