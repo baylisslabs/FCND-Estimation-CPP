@@ -139,7 +139,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 $
 \begin{align}
-g'(x_t,u_t,\varDelta t) = \begin{bmatrix}
+G_t = g'(x_t,u_t,\varDelta t) = \begin{bmatrix}
   1 & 0 & 0 & \varDelta t & 0           & 0           & 0 \\
   0 & 1 & 0 & 0           & \varDelta t & 0           & 0 \\
   0 & 0 & 1 & 0           & 0           & \varDelta t & 0 \\
@@ -187,6 +187,36 @@ ekfCov = ekfCov * gPrime + Q;
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+$
+\begin{align}
+z_t = \begin{bmatrix}
+  \psi
+  \end{bmatrix}
+\end{align}
+$
+$
+\begin{align}
+h(x_t) = \begin{bmatrix}
+  x_{t,\psi}
+  \end{bmatrix}
+\end{align}
+$
+$
+\begin{align}
+h'(x_t) = \begin{bmatrix}
+  0 & 0 & 0 & 0 & 0 & 0 & 1
+  \end{bmatrix}
+\end{align}
+$
+$
+\begin{align}
+normalise \space h(x_t) : -\pi <= z_t[0] - h(x_t)[0] < \pi
+\end{align}
+$
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit
+
 ```cpp
 hPrime(0,6) = 1;
 zFromX(0) = z(0) - AngleNormF(magYaw - ekfState(6));
@@ -196,6 +226,43 @@ zFromX(0) = z(0) - AngleNormF(magYaw - ekfState(6));
 ## Implementing GPS update
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+$
+\begin{align}
+z_t = \begin{bmatrix}
+  x \\
+  y \\
+  z \\
+  \dot{x} \\
+  \dot{y} \\
+  \dot{z} \\
+  \end{bmatrix}
+\end{align}
+$
+$
+\begin{align}
+h(x_t) = \begin{bmatrix}
+  x_{t,x} \\
+  x_{t,y} \\
+  x_{t,z} \\
+  x_{t,\dot{x}} \\
+  x_{t,\dot{y}} \\
+  x_{t,\dot{z}} \\
+  \end{bmatrix}
+\end{align}
+$
+$
+\begin{align}
+h'(x_t) = \begin{bmatrix}
+  1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+  0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+  0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+  0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+  \end{bmatrix}
+\end{align}
+$
 
 ```cpp
 hPrime.leftCols(6).setIdentity();
