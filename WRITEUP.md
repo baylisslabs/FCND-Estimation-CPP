@@ -9,7 +9,7 @@ This is the writeup for my implementation of the *Building an Estimator* in C++.
 
 ## Determining measurement noise
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Given a set of sampled sensor measurements from a stationary quadrotor the noise standard deviation can be calculated according to the following equation:
 
 <!-- $
 \begin{align*}
@@ -17,7 +17,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \end{align*}
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/wlwbldpxHD.svg">
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+In this case I made use of the std() routine from the numpy library:
 
 ```cpp
 gps_xs = np.genfromtxt("../config/log/Graph1.txt",delimiter=",",skip_header=True)
@@ -29,13 +29,15 @@ sigma = np.std(imu_axs[:,1])
 x_bar = np.mean(imu_axs[:,1])
 ```
 
+After updating the configuration the measurements are now captured within the 68th percentile:
+
 <p align="center">
 <img src="writeup/scenario6.gif" width="500"/>
 </p>
 
 ## Implementing rate gyro attitude integration
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Using the supplied Quaternion class I was able integrate the IMU body rate inputs and so update the estimator to use Nonlinear complementary filtering for attitude according to the equations below:
 
 <!-- $
 \begin{align*}
@@ -45,6 +47,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \end{align*}
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/ObxzPA0snu.svg">
 
+
 ```cpp
 auto attitudeEst = Quaternion<float>::FromEuler123_RPY(rollEst,pitchEst,ekfState(6));
 auto attitudePred = attitudeEst.IntegrateBodyRate(gyro,dtIMU);
@@ -53,13 +56,15 @@ auto predictedRoll = attitudePred.Roll();
 ekfState(6) = attitudePred.Yaw();
 ```
 
+This results in improved attitude tracking as seen when running Scenario #7:
+
 <p align="center">
 <img src="writeup/scenario7.gif" width="500"/>
 </p>
 
 ## Implementing prediction step elements
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Firstly the PredictState() method was updated which integrates the current velocity and IMU acceleration inputs to calculate the next predicted state.
 
 <!-- $
 \begin{align*}
@@ -92,7 +97,7 @@ $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/7zB
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/FUxeNa28ox.svg">
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+The IMU acceleration is rotated into the interial frame and corrected for gravity, and then predicted state is calculated:
 
 ```cpp
 auto accelInI = attitude.Rotate_BtoI(accel) + V3F(0,0,-CONST_GRAVITY);
@@ -107,12 +112,13 @@ dState(6) = 0;
 predictedState = curState + (dState * dt);
 ```
 
+This results in the predicted state closely following the true state for Scenario#8.
+
 <p align="center">
 <img src="writeup/scenario8.gif" width="500"/>
 </p>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
+Preparing to update the state covariance the GetRbgPrime() method is implemented according to the following equation:
 
 <!-- $
 \begin{align*}
@@ -124,8 +130,7 @@ R'_{bg} = \begin{bmatrix}
 \end{align*}
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/iJHwoqVBPR.svg">
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
+In code I have formatted as follows for readability and to assist with cross-checking against the referenced formula:
 
 ```cpp
 const auto phi = roll;
@@ -140,7 +145,7 @@ RbgPrime(1,1) = sinf(phi)*sinf(theta)*cosf(psi) - cosf(phi)*sinf(psi);
 RbgPrime(1,2) = cosf(phi)*sinf(theta)*cosf(psi) + sinf(phi)*sinf(psi);
 ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+The next step is to remove the gravity reaction force from the measured IMU acceleration vector, which is used as a control input for the EKF:
 
 ```cpp
 auto attitude = Quaternion<float>::FromEuler123_RPY(rollEst, pitchEst, ekfState(6));
@@ -148,7 +153,7 @@ auto gravity = V3F(0,0,-CONST_GRAVITY);
 auto accelInB = accel + attitude.Rotate_ItoB(gravity);
 ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Then the elements of the Jacobian matrix are prepared as shown in reference equation below:
 
 <!-- $
 \begin{align*}
@@ -164,7 +169,7 @@ G_t = g'(x_t,u_t,\varDelta t) = \begin{bmatrix}
 \end{align*}
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/lycZizkGjb.svg">
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+As the matrix `gPrime` was already initialized as the identity matrix this leaves a further 6 elements to be assigned as follows:
 
 ```cpp
 for(int i=0;i<3;++i) {
@@ -180,20 +185,23 @@ for(int i=0;i<3;++i) {
 }
 ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Now state covariance can be predicted as per the EKF algorithm step:
+
 <!-- $
 \begin{align*}
 \bar{\Sigma_T}=G_t\Sigma_{t-1}G_t^T+Q_t
 \end{align*}
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/3mipTDi0Vk.svg">
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+As recommended the transpose of `gPrime` is calculated using the transposeInPlace() method. This saves an unnecessary extra memory allocation and copying for the large matrix:
 
 ```cpp
 ekfCov = gPrime * ekfCov;
 gPrime.transposeInPlace();
 ekfCov = ekfCov * gPrime + Q;
 ```
+
+After this the process noise paramaters in `config/QuadEstimatorEKF.txt` were tuned so that the covariance better tracks the data:
 
 <p align="center">
 <img src="writeup/scenario9.gif" width="500"/>
