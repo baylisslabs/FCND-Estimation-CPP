@@ -74,7 +74,7 @@ x_{t} =
     \psi
   \end{bmatrix} \\
 \end{align*}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/7zBqDAwpvn.svg">
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/7zBqDAwpvn.svg">,
 
 <!-- $
 \begin{align*}
@@ -209,7 +209,7 @@ z_t = \begin{bmatrix}
   \psi
   \end{bmatrix}
 \end{align*}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/hUq7aa8jsB.svg">
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/hUq7aa8jsB.svg">,
 
 <!-- $
 \begin{align*}
@@ -217,7 +217,7 @@ h(x_t) = \begin{bmatrix}
   x_{t,\psi}
   \end{bmatrix}
 \end{align*}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/MgQkZCVaHf.svg">
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/MgQkZCVaHf.svg">,
 
 <!-- $
 \begin{align*}
@@ -225,7 +225,7 @@ h'(x_t) = \begin{bmatrix}
   0 & 0 & 0 & 0 & 0 & 0 & 1
   \end{bmatrix}
 \end{align*}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/VN2xyjuDmN.svg">
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/VN2xyjuDmN.svg">,
 
 <!-- $
 \begin{align*}
@@ -260,7 +260,7 @@ z_t = \begin{bmatrix}
   \dot{z} \\
   \end{bmatrix}
 \end{align*}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/dkuvhDYR0U.svg">
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/dkuvhDYR0U.svg">,
 
 <!-- $
 \begin{align*}
@@ -273,7 +273,7 @@ h(x_t) = \begin{bmatrix}
   x_{t,\dot{z}} \\
   \end{bmatrix}
 \end{align*}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/ALD4ts4cmo.svg">
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/ALD4ts4cmo.svg">,
 
 <!-- $
 \begin{align*}
