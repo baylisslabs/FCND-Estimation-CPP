@@ -3,7 +3,7 @@
 This is the writeup for my implementation of the *Building an Estimator* in C++. In each section below I address all the required rubric items. The animation below shows the final result: the quadrotor follows the test trajectory succesfully.
 
 <p align="center">
-<img src="writeup/todo.gif" width="500"/>
+<img src="writeup/scenario11.gif" width="500"/>
 </p>
 
 
@@ -29,6 +29,10 @@ sigma = np.std(imu_axs[:,1])
 x_bar = np.mean(imu_axs[:,1])
 ```
 
+<p align="center">
+<img src="writeup/scenario6.gif" width="500"/>
+</p>
+
 ## Implementing rate gyro attitude integration
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -48,6 +52,10 @@ auto predictedPitch = attitudePred.Pitch();
 auto predictedRoll = attitudePred.Roll();
 ekfState(6) = attitudePred.Yaw();
 ```
+
+<p align="center">
+<img src="writeup/scenario7.gif" width="500"/>
+</p>
 
 ## Implementing prediction step elements
 
@@ -99,9 +107,12 @@ dState(6) = 0;
 predictedState = curState + (dState * dt);
 ```
 
+<p align="center">
+<img src="writeup/scenario8.gif" width="500"/>
+</p>
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-TODO: Fix code
 
 $
 \begin{align}
@@ -184,6 +195,9 @@ gPrime.transposeInPlace();
 ekfCov = ekfCov * gPrime + Q;
 ```
 
+<p align="center">
+<img src="writeup/scenario9.gif" width="500"/>
+</p>
 
 ## Implementing magnetometer update
 
@@ -224,6 +238,9 @@ hPrime(0,6) = 1;
 zFromX(0) = z(0) - AngleNormF(magYaw - ekfState(6));
 ```
 
+<p align="center">
+<img src="writeup/scenario10.gif" width="500"/>
+</p>
 
 ## Implementing GPS update
 
