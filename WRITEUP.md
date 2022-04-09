@@ -106,8 +106,8 @@ TODO: Fix code
 $
 \begin{align}
 R'_{bg} = \begin{bmatrix}
-  -cos(\theta)sin(\psi) & -sin(\phi)sin(\theta)sin(\psi) - cos(\theta)sin(\psi) &  -sin(\phi)sin(\theta)sin(\psi) + sin(\theta)cos(\psi) \\
-  sin(\theta)sin(\psi) & sin(\phi)sin(\theta)sin(\psi) - sin(\theta)sin(\psi) & sin(\phi)sin(\theta)sin(\psi) + sin(\theta)sin(\psi) \\
+  -cos(\theta)sin(\psi) & -sin(\phi)sin(\theta)sin(\psi) - cos(\phi)cos(\psi) &  -cos(\phi)sin(\theta)sin(\psi) + sin(\phi)cos(\psi) \\
+  cos(\theta)cos(\psi) & sin(\phi)sin(\theta)cos(\psi) - cos(\phi)sin(\psi) & cos(\phi)sin(\theta)cos(\psi) + sin(\phi)sin(\psi) \\
   0 & 0 & 0
   \end{bmatrix}
 \end{align}
@@ -121,12 +121,12 @@ const auto phi = roll;
 const auto theta = pitch;
 const auto psi = yaw;
 RbgPrime(0,0) = -cosf(theta)*sinf(psi);
-RbgPrime(0,1) = -sinf(phi)*sinf(theta)*sinf(psi) - cosf(theta)*cosf(psi);
-RbgPrime(0,2) = -cosf(phi)*sinf(theta)*sinf(psi) + sinf(theta)*cosf(psi);
+RbgPrime(0,1) = -sinf(phi)*sinf(theta)*sinf(psi) - cosf(phi)*cosf(psi);
+RbgPrime(0,2) = -cosf(phi)*sinf(theta)*sinf(psi) + sinf(phi)*cosf(psi);
 
 RbgPrime(1,0) = cosf(theta)*cosf(psi);
-RbgPrime(1,1) = sinf(phi)*sinf(theta)*cosf(psi) - cosf(theta)*sinf(psi);
-RbgPrime(1,2) = cosf(phi)*sinf(theta)*cosf(psi) + sinf(theta)*sinf(psi);
+RbgPrime(1,1) = sinf(phi)*sinf(theta)*cosf(psi) - cosf(phi)*sinf(psi);
+RbgPrime(1,2) = cosf(phi)*sinf(theta)*cosf(psi) + sinf(phi)*sinf(psi);
 ```
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

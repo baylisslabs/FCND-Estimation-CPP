@@ -194,12 +194,12 @@ MatrixXf QuadEstimatorEKF::GetRbgPrime(float roll, float pitch, float yaw)
   const auto theta = pitch;
   const auto psi = yaw;
   RbgPrime(0,0) = -cosf(theta)*sinf(psi);
-  RbgPrime(0,1) = -sinf(phi)*sinf(theta)*sinf(psi) - cosf(theta)*cosf(psi);
-  RbgPrime(0,2) = -cosf(phi)*sinf(theta)*sinf(psi) + sinf(theta)*cosf(psi);
+  RbgPrime(0,1) = -sinf(phi)*sinf(theta)*sinf(psi) - cosf(phi)*cosf(psi);
+  RbgPrime(0,2) = -cosf(phi)*sinf(theta)*sinf(psi) + sinf(phi)*cosf(psi);
 
   RbgPrime(1,0) = cosf(theta)*cosf(psi);
-  RbgPrime(1,1) = sinf(phi)*sinf(theta)*cosf(psi) - cosf(theta)*sinf(psi);
-  RbgPrime(1,2) = cosf(phi)*sinf(theta)*cosf(psi) + sinf(theta)*sinf(psi);
+  RbgPrime(1,1) = sinf(phi)*sinf(theta)*cosf(psi) - cosf(phi)*sinf(psi);
+  RbgPrime(1,2) = cosf(phi)*sinf(theta)*cosf(psi) + sinf(phi)*sinf(psi);
   /////////////////////////////// END STUDENT CODE ////////////////////////////
 
   return RbgPrime;
