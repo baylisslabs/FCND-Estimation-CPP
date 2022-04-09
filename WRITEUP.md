@@ -209,7 +209,7 @@ After this the process noise paramaters in `config/QuadEstimatorEKF.txt` were tu
 
 ## Implementing magnetometer update
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+In this step the magnetometer measurement is incorporated into the estimator. To achieve this the following vectors are supplied to the EKF update function:
 
 <!-- $
 \begin{align*}
@@ -242,12 +242,14 @@ normalise \space h(x_t) : -\pi <= z_t[0] - h(x_t)[0] < \pi
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/8KArv3MmiZ.svg">
 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit
+This is implemented in code as follows, being sure to arrange `zFromX` such that the yaw difference will be +/- 180 degrees.
 
 ```cpp
 hPrime(0,6) = 1;
 zFromX(0) = z(0) - AngleNormF(magYaw - ekfState(6));
 ```
+
+And now running Scenario #10 the estimated standard deviation can be seen to capture the error:
 
 <p align="center">
 <img src="writeup/scenario10.gif" width="500"/>
@@ -255,7 +257,8 @@ zFromX(0) = z(0) - AngleNormF(magYaw - ekfState(6));
 
 ## Implementing GPS update
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+In this step the GPS measurement is incorporated into the estimator. To achieve this the following vectors are supplied to the EKF update function:
+
 
 <!-- $
 \begin{align*}
@@ -296,11 +299,14 @@ h'(x_t) = \begin{bmatrix}
 \end{align*}
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/rxe9OBq9oN.svg">
 
+This is implemented in code as follows:
+
 ```cpp
 hPrime.leftCols(6).setIdentity();
 zFromX = ekfState.head(6);
 ```
 
+At this this stage the QuadController implementation from the previous project was incorporated and tuned. At this point the estimator was able complete the entire simulation cycle for Scenarion #11 with estimated position error of < 1m.
 
 
 
