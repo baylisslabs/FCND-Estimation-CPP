@@ -1,6 +1,6 @@
 # Project: Building an Estimator
 
-This is the writeup for my implementation of the *Building an Estimator* in C++. In each section below I address all the required rubric items. The animation below shows the final result: the quadrotor follows the test trajectory succesfully.
+This is the writeup for my implementation of the *Building an Estimator* in C++ project. In each section below I address all the required rubric items. The animation below shows the final result: the quadrotor controller implemented in my previous project follows the test trajectory successfully.
 
 <p align="center">
 <img src="writeup/scenario11.gif" width="500"/>
@@ -97,7 +97,7 @@ $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/7zB
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/FUxeNa28ox.svg">
 
 
-The IMU acceleration is rotated into the interial frame and corrected for gravity, and then predicted state is calculated:
+The IMU acceleration is rotated into the inertial frame and corrected for gravity, and then `predictedState` is calculated:
 
 ```cpp
 auto accelInI = attitude.Rotate_BtoI(accel) + V3F(0,0,-CONST_GRAVITY);
@@ -118,7 +118,7 @@ This results in the predicted state closely following the true state for Scenari
 <img src="writeup/scenario8.gif" width="500"/>
 </p>
 
-Preparing to update the state covariance the GetRbgPrime() method is implemented according to the following equation:
+Preparing to update the state covariance, the `GetRbgPrime()` method is implemented according to the following equation:
 
 <!-- $
 \begin{align*}
@@ -153,7 +153,7 @@ auto gravity = V3F(0,0,-CONST_GRAVITY);
 auto accelInB = accel + attitude.Rotate_ItoB(gravity);
 ```
 
-Then the elements of the Jacobian matrix are prepared as shown in reference equation below:
+Then the elements of the Jacobian matrix are prepared to match the reference equation below:
 
 <!-- $
 \begin{align*}
@@ -169,7 +169,7 @@ G_t = g'(x_t,u_t,\varDelta t) = \begin{bmatrix}
 \end{align*}
 $ --> <img style="transform: translateY(0.1em); background: white;" src="svg/lycZizkGjb.svg">
 
-As the matrix `gPrime` was already initialized as the identity matrix this leaves a further 6 elements to be assigned as follows:
+As the matrix `gPrime` was already initialized to the identity matrix this leaves a further 6 elements to be assigned as follows:
 
 ```cpp
 for(int i=0;i<3;++i) {
