@@ -12,10 +12,10 @@ This is the writeup for my implementation of the *Building an Estimator* in C++.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <!-- $
-\begin{align}
+\begin{align*}
 \hat{\sigma}^2 = {1\over n} \sum_{i=1}^{n} (x_i-\hat{x})^2
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0A%5Chat%7B%5Csigma%7D%5E2%20%3D%20%7B1%5Cover%20n%7D%20%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%20(x_i-%5Chat%7Bx%7D)%5E2%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/wlwbldpxHD.svg">
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
 
@@ -38,12 +38,12 @@ x_bar = np.mean(imu_axs[:,1])
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <!-- $
-\begin{align}
+\begin{align*}
 \bar{q_t} = dq*q_t \\
 \bar{\theta_t}=Pitch(\bar{q_t}) \\
 \bar{\phi_t}=Roll(\bar{q_t})
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0A%5Cbar%7Bq_t%7D%20%3D%20dq*q_t%20%5C%5C%0A%5Cbar%7B%5Ctheta_t%7D%3DPitch(%5Cbar%7Bq_t%7D)%20%5C%5C%0A%5Cbar%7B%5Cphi_t%7D%3DRoll(%5Cbar%7Bq_t%7D)%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/ObxzPA0snu.svg">
 
 ```cpp
 auto attitudeEst = Quaternion<float>::FromEuler123_RPY(rollEst,pitchEst,ekfState(6));
@@ -62,7 +62,7 @@ ekfState(6) = attitudePred.Yaw();
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <!-- $
-\begin{align}
+\begin{align*}
 x_{t} =
  \begin{bmatrix}
     x \\
@@ -73,11 +73,11 @@ x_{t} =
     \dot{z} \\
     \psi
   \end{bmatrix} \\
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Ax_%7Bt%7D%20%3D%0A%20%5Cbegin%7Bbmatrix%7D%0A%20%20%20%20x%20%5C%5C%0A%20%20%20%20y%20%5C%5C%0A%20%20%20%20z%20%5C%5C%0A%20%20%20%20%5Cdot%7Bx%7D%20%5C%5C%0A%20%20%20%20%5Cdot%7By%7D%20%5C%5C%0A%20%20%20%20%5Cdot%7Bz%7D%20%5C%5C%0A%20%20%20%20%5Cpsi%0A%20%20%5Cend%7Bbmatrix%7D%20%5C%5C%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/7zBqDAwpvn.svg">
 
 <!-- $
-\begin{align}
+\begin{align*}
 \bar{x_t} = \hat{x_{t-1}} +
  \begin{bmatrix}
     \dot{x} \\
@@ -88,8 +88,8 @@ $ --> <img style="transform: translateY(0.1em); background: white;" src="https:/
     \ddot{z} \\
     0
   \end{bmatrix} \varDelta T
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0A%5Cbar%7Bx_t%7D%20%3D%20%5Chat%7Bx_%7Bt-1%7D%7D%20%2B%0A%20%5Cbegin%7Bbmatrix%7D%0A%20%20%20%20%5Cdot%7Bx%7D%20%5C%5C%0A%20%20%20%20%5Cdot%7By%7D%20%5C%5C%0A%20%20%20%20%5Cdot%7Bz%7D%20%5C%5C%0A%20%20%20%20%5Cddot%7Bx%7D%20%5C%5C%0A%20%20%20%20%5Cddot%7By%7D%20%5C%5C%0A%20%20%20%20%5Cddot%7Bz%7D%20%5C%5C%0A%20%20%20%200%0A%20%20%5Cend%7Bbmatrix%7D%20%5CvarDelta%20T%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/FUxeNa28ox.svg">
 
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -115,14 +115,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 
 <!-- $
-\begin{align}
+\begin{align*}
 R'_{bg} = \begin{bmatrix}
   -cos(\theta)sin(\psi) & -sin(\phi)sin(\theta)sin(\psi) - cos(\phi)cos(\psi) &  -cos(\phi)sin(\theta)sin(\psi) + sin(\phi)cos(\psi) \\
   cos(\theta)cos(\psi) & sin(\phi)sin(\theta)cos(\psi) - cos(\phi)sin(\psi) & cos(\phi)sin(\theta)cos(\psi) + sin(\phi)sin(\psi) \\
   0 & 0 & 0
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0AR'_%7Bbg%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%20-cos(%5Ctheta)sin(%5Cpsi)%20%26%20-sin(%5Cphi)sin(%5Ctheta)sin(%5Cpsi)%20-%20cos(%5Cphi)cos(%5Cpsi)%20%26%20%20-cos(%5Cphi)sin(%5Ctheta)sin(%5Cpsi)%20%2B%20sin(%5Cphi)cos(%5Cpsi)%20%5C%5C%0A%20%20cos(%5Ctheta)cos(%5Cpsi)%20%26%20sin(%5Cphi)sin(%5Ctheta)cos(%5Cpsi)%20-%20cos(%5Cphi)sin(%5Cpsi)%20%26%20cos(%5Cphi)sin(%5Ctheta)cos(%5Cpsi)%20%2B%20sin(%5Cphi)sin(%5Cpsi)%20%5C%5C%0A%20%200%20%26%200%20%26%200%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/iJHwoqVBPR.svg">
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
@@ -151,7 +151,7 @@ auto accelInB = accel + attitude.Rotate_ItoB(gravity);
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 <!-- $
-\begin{align}
+\begin{align*}
 G_t = g'(x_t,u_t,\varDelta t) = \begin{bmatrix}
   1 & 0 & 0 & \varDelta t & 0           & 0           & 0 \\
   0 & 1 & 0 & 0           & \varDelta t & 0           & 0 \\
@@ -161,8 +161,8 @@ G_t = g'(x_t,u_t,\varDelta t) = \begin{bmatrix}
   0 & 0 & 0 & 0           & 0           & 1           & R'_{bg}[2:]u_t[0:3]\varDelta t \\
   0 & 0 & 0 & 0           & 0           & 0           & 1 \\
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0AG_t%20%3D%20g'(x_t%2Cu_t%2C%5CvarDelta%20t)%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%201%20%26%200%20%26%200%20%26%20%5CvarDelta%20t%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%5C%5C%0A%20%200%20%26%201%20%26%200%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%20%5CvarDelta%20t%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%5C%5C%0A%20%200%20%26%200%20%26%201%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%20%5CvarDelta%20t%20%26%200%20%5C%5C%0A%20%200%20%26%200%20%26%200%20%26%201%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%20R'_%7Bbg%7D%5B0%3A%5Du_t%5B0%3A3%5D%5CvarDelta%20t%20%5C%5C%0A%20%200%20%26%200%20%26%200%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%201%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%20R'_%7Bbg%7D%5B1%3A%5Du_t%5B0%3A3%5D%5CvarDelta%20t%20%5C%5C%0A%20%200%20%26%200%20%26%200%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%201%20%20%20%20%20%20%20%20%20%20%20%26%20R'_%7Bbg%7D%5B2%3A%5Du_t%5B0%3A3%5D%5CvarDelta%20t%20%5C%5C%0A%20%200%20%26%200%20%26%200%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%200%20%20%20%20%20%20%20%20%20%20%20%26%201%20%5C%5C%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/lycZizkGjb.svg">
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
@@ -182,10 +182,10 @@ for(int i=0;i<3;++i) {
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 <!-- $
-\begin{align}
+\begin{align*}
 \bar{\Sigma_T}=G_t\Sigma_{t-1}G_t^T+Q_t
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0A%5Cbar%7B%5CSigma_T%7D%3DG_t%5CSigma_%7Bt-1%7DG_t%5ET%2BQ_t%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/3mipTDi0Vk.svg">
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
@@ -204,31 +204,34 @@ ekfCov = ekfCov * gPrime + Q;
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <!-- $
-\begin{align}
+\begin{align*}
 z_t = \begin{bmatrix}
   \psi
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Az_t%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%20%5Cpsi%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/hUq7aa8jsB.svg">
+
 <!-- $
-\begin{align}
+\begin{align*}
 h(x_t) = \begin{bmatrix}
   x_{t,\psi}
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Ah(x_t)%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%20x_%7Bt%2C%5Cpsi%7D%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/MgQkZCVaHf.svg">
+
 <!-- $
-\begin{align}
+\begin{align*}
 h'(x_t) = \begin{bmatrix}
   0 & 0 & 0 & 0 & 0 & 0 & 1
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Ah'(x_t)%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%200%20%26%200%20%26%200%20%26%200%20%26%200%20%26%200%20%26%201%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/VN2xyjuDmN.svg">
+
 <!-- $
-\begin{align}
+\begin{align*}
 normalise \space h(x_t) : -\pi <= z_t[0] - h(x_t)[0] < \pi
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Anormalise%20%5Cspace%20h(x_t)%20%3A%20-%5Cpi%20%3C%3D%20z_t%5B0%5D%20-%20h(x_t)%5B0%5D%20%3C%20%5Cpi%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/8KArv3MmiZ.svg">
 
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -247,7 +250,7 @@ zFromX(0) = z(0) - AngleNormF(magYaw - ekfState(6));
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 <!-- $
-\begin{align}
+\begin{align*}
 z_t = \begin{bmatrix}
   x \\
   y \\
@@ -256,10 +259,11 @@ z_t = \begin{bmatrix}
   \dot{y} \\
   \dot{z} \\
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Az_t%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%20x%20%5C%5C%0A%20%20y%20%5C%5C%0A%20%20z%20%5C%5C%0A%20%20%5Cdot%7Bx%7D%20%5C%5C%0A%20%20%5Cdot%7By%7D%20%5C%5C%0A%20%20%5Cdot%7Bz%7D%20%5C%5C%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/dkuvhDYR0U.svg">
+
 <!-- $
-\begin{align}
+\begin{align*}
 h(x_t) = \begin{bmatrix}
   x_{t,x} \\
   x_{t,y} \\
@@ -268,10 +272,11 @@ h(x_t) = \begin{bmatrix}
   x_{t,\dot{y}} \\
   x_{t,\dot{z}} \\
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Ah(x_t)%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%20x_%7Bt%2Cx%7D%20%5C%5C%0A%20%20x_%7Bt%2Cy%7D%20%5C%5C%0A%20%20x_%7Bt%2Cz%7D%20%5C%5C%0A%20%20x_%7Bt%2C%5Cdot%7Bx%7D%7D%20%5C%5C%0A%20%20x_%7Bt%2C%5Cdot%7By%7D%7D%20%5C%5C%0A%20%20x_%7Bt%2C%5Cdot%7Bz%7D%7D%20%5C%5C%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/ALD4ts4cmo.svg">
+
 <!-- $
-\begin{align}
+\begin{align*}
 h'(x_t) = \begin{bmatrix}
   1 & 0 & 0 & 0 & 0 & 0 & 0 \\
   0 & 1 & 0 & 0 & 0 & 0 & 0 \\
@@ -280,8 +285,8 @@ h'(x_t) = \begin{bmatrix}
   0 & 0 & 0 & 0 & 1 & 0 & 0 \\
   0 & 0 & 0 & 0 & 0 & 1 & 0 \\
   \end{bmatrix}
-\end{align}
-$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbegin%7Balign%7D%0Ah'(x_t)%20%3D%20%5Cbegin%7Bbmatrix%7D%0A%20%201%20%26%200%20%26%200%20%26%200%20%26%200%20%26%200%20%26%200%20%5C%5C%0A%20%200%20%26%201%20%26%200%20%26%200%20%26%200%20%26%200%20%26%200%20%5C%5C%0A%20%200%20%26%200%20%26%201%20%26%200%20%26%200%20%26%200%20%26%200%20%5C%5C%0A%20%200%20%26%200%20%26%200%20%26%201%20%26%200%20%26%200%20%26%200%20%5C%5C%0A%20%200%20%26%200%20%26%200%20%26%200%20%26%201%20%26%200%20%26%200%20%5C%5C%0A%20%200%20%26%200%20%26%200%20%26%200%20%26%200%20%26%201%20%26%200%20%5C%5C%0A%20%20%5Cend%7Bbmatrix%7D%0A%5Cend%7Balign%7D">
+\end{align*}
+$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/rxe9OBq9oN.svg">
 
 ```cpp
 hPrime.leftCols(6).setIdentity();
